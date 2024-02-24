@@ -4,7 +4,7 @@ from pygame.locals import *
 
 pygame.init()
 
-canvas = pygame.display.set_mode((500,500))
+canvas = pygame.display.set_mode((800,500))
 
 pygame.display.set_caption("Growth Game")
 gameOn = True
