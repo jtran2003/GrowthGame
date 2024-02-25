@@ -13,8 +13,8 @@ class skill:
         self.name = ""
         self.search_key = ""
 
-    def increment_skill(self, count):
-        self.level += count
+    def increment_skill(self, count=0, weight=0):
+        self.level += count + weight
     
     def get_level(self):
         return self.level
@@ -45,9 +45,9 @@ class academics(skill):
     
     def search(grade, schedule):
         if grade < 9:
-            return ["math", "science", "english", "french", "history", "gym", "music"]
+            return [["math", "academics"], ["science","academics"], ["english","academics"], ["french","academics"], ["history","academics"], ["PE","academics"], ["music","academics"]]
         if grade < 11:
-            return ["math", "science", "english", "french", "history", "gym", "music", "business", "tech"]
+            return [["math","academics"], ["science","academics"], ["english","academics"], ["french","academics"], ["history","academics"], ["PE","academics"], ["music","academics"], ["business","academics"], ["tech","academics"]]
         else:
             return super().search_activities(schedule)
         

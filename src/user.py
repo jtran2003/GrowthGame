@@ -19,6 +19,7 @@ class User:
         self.name = ""
         self.age = 11
         self.grade = progression.grade()
+        self.work = progression.work()
         # self.gender = ''
         self.schedule = []
         self.action_history = {}
@@ -30,16 +31,14 @@ class User:
 
     def update_skills(self):
         self.action_history[self.age] = self.schedule
-        update = [0] * 3
-        DOCS = ["nerd", "jock", "dork"]
 
-        for skill in self.schedule:
-            res = co.rerank(query=skill, documents=DOCS, model="rerank-english-v2.0", top_n = 3)
-            print(res)
-            update[res[0].index] += 1
-        
-        for i in range(len(update)):
-            self.skills[i].increment_skill(update[i])
+        for skill in set(self.schedule):
+            if skill[1] == "academics":
+                self.skills[0].increment_skill(self.schedule.count(skill))
+            elif skill[1] == "athletics":
+                self.skills[1].increment_skill(self.schedule.count(skill))
+            else:
+                self.skills[3].increment_skill(self.schedule.count(skill))
 
     def get_skills(self):
         return {skill.get_name(): skill.get_level() for skill in self.skills}
