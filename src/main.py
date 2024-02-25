@@ -7,26 +7,16 @@ pygame.init()
 clock = pygame.time.Clock()
 
 character = user.User("Player")
+grade_level = character.get_grade()
 
-class icon:
-    # For blocks 
-    def __init__(self, x_pos, y_pos, color, name):
-        self.surface = pygame.Surface((25,25))
-        self.color = color
-        self.surface.fill(color)
-        self.y_pos = y_pos
-        self.rect = self.surface.get_rect(topleft = (x_pos,y_pos))
-        self.name = name
-        self.clicked = False
-        
-    
+
+class icon: 
     # For image 
     def __init__(self, x_pos, y_pos, image, scale):
         width = image.get_width()
         height = image.get_height()
         self.image = pygame.transform.scale(image, (int(width*scale),int(height*scale)))
         self.rect = self.image.get_rect(topleft = (x_pos,y_pos))
-        #self.info = info
 
 
     def draw(self):
@@ -37,6 +27,7 @@ class icon:
         if self.rect.collidepoint(pos):
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
+                character.grade.grade += 1
                 print("clicked")
         
         if pygame.mouse.get_pressed()[0] == 0:
@@ -52,11 +43,17 @@ canvas.fill('chartreuse4')
 pathway = pygame.image.load('./src/Assets/path.png')
 pathway = pygame.transform.scale(pathway, (150,500))
 
+# Grade Font & Surface
+font = pygame.font.Font(None, 50)
+temp_grade_level = str(grade_level)
+font_surface = font.render('Grade Level: ' + temp_grade_level, False, 'Black')
+
 # Creating Player
-player = pygame.Surface((25,25))
-player.fill('Red')
+player = pygame.image.load('./src/Assets/kevin11.png')
+player = pygame.transform.scale(player, (75,75))
 player_y_pos = 50
-player_rect = player.get_rect(topleft = (640,player_y_pos))
+player_x_pos = 620
+player_rect = player.get_rect(topleft = (player_x_pos,player_y_pos))
 
 
 mid_img = pygame.image.load('./src/Assets/mid_school.png').convert_alpha()
@@ -84,7 +81,6 @@ hobby_img = pygame.image.load('./src/Assets/hobbies.png').convert_alpha()
 hobby = icon(450, 350, hobby_img, 0.2)
 
 pygame.display.set_caption("Growth Game")
-
 game_on = True
 
 while game_on:
@@ -93,26 +89,22 @@ while game_on:
             game_on = False
     
     canvas.blit(pathway, (575,0))
- 
+    canvas.blit(font_surface, (50,100))
+    
 
-
-    if character.get_grade() < 9:
-        mid_school.draw()
-    elif character.get_grade() < 13:
+    if grade_level < 9:
+         mid_school.draw()
+    elif grade_level < 13:
         high_school.draw()
     else:
         university.draw()
-    work.draw()
+        appren.draw()
     appren.draw()
+    work.draw()
     sports.draw()
     hobby.draw()
 
     canvas.blit(player, player_rect)
-
-     
-
-    #player_y_pos += 2
-    #canvas.blit(player, (640,player_y_pos))
 
     
     pygame.display.update()
