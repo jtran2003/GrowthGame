@@ -8,12 +8,11 @@ pygame.init()
 canvas = pygame.display.set_mode((1000,500))
 canvas.fill('chartreuse4')
 
-# Create Grass
-grass = pygame.image.load('/grass.png')
 
 # Creating Path
-pathway = pygame.Surface((200,500))
-pathway.fill('khaki3')
+pathway = pygame.image.load('C:/Users/jzham/PROJECTS/GrowthGame/src/Assets/path.png')
+pathway = pygame.transform.scale(pathway, (150,500))
+
 
 pygame.display.set_caption("Growth Game")
 gameOn = True
@@ -23,7 +22,7 @@ while gameOn:
         if event.type == pygame.QUIT:
             gameOn = False
     
-    canvas.blit(grass, (0,0))
-    canvas.blit(pathway, (550,0 ))
+    # canvas.blit(grass, (0,0))
+    canvas.blit(pathway, (575,0))
     
     pygame.display.update()
