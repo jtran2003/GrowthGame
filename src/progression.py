@@ -65,8 +65,38 @@ class work:
             else:
                 print("Job unchanged")
         return res
-
+    
                     
+class postsecondary:
+    def __init__(self):
+        pass
+    
+    def search_studies(self, history):
+        history = ", ".join(history)
+        ret = None
+
+        while not ret:
+            res = co.chat(message=f"Please provide me a serious comma separated string of post-secondary studies for students who have previously done {history} where the number of repeated activity represents a greater preference in that trait. Additionally, please do not include any comments, prefacing text, or additional jargon aside from the string.", model="command-light", temperature=0.2).text
+            res_list = res.split("\n")
+
+            for i in range(len(res_list)):
+                if re.search(".+,.+,.+,.+", res_list[i]):
+                    if len(res_list[i].split(", ")) > 5:
+                        return [[major.strip()] for major in res_list[i].split(",")]
+
+    def search_general_studies(self):
+        ret = None
+
+        while not ret:
+            res = co.chat(message=f"Please provide me a serious comma separated string of post-secondary studies. Additionally, please do not include any comments, prefacing text, or additional jargon aside from the string.", model="command-light", temperature=0.2).text
+            res_list = res.split("\n")
+
+            for i in range(len(res_list)):
+                if re.search(".+,.+,.+,.+", res_list[i]):
+                    if len(res_list[i].split(", ")) > 5:
+                        return [[major.strip()] for major in res_list[i].split(",")]
+
+
 if __name__ == "__main__":
     jobs = work()
     # print(jobs.search_job(["math"], 6))
