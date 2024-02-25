@@ -59,19 +59,29 @@ player_y_pos = 50
 player_rect = player.get_rect(topleft = (640,player_y_pos))
 
 
-# # Attributes Frame
-# frame = pygame.Surface((25, 25))
-# apprentice.fill('black')
-# app_pos = 350
+mid_img = pygame.image.load('./src/Assets/mid_school.png').convert_alpha()
+mid_school = icon(450, 35, mid_img, 0.2)
 
-mid_school = icon(475, 50, 'Black')
-high_school = icon(475, 50, 'White')
-college = icon(800, 50, 'Black')
-university = icon(800, 50, 'Black')
-work = icon(475, 200, 'Black')
-appren = icon(475, 200, 'Black')
-sports = icon(800, 200, 'Black')
-hobby = icon(475, 350, 'Black')
+high_img = pygame.image.load('./src/Assets/high_school.png').convert_alpha()
+high_school = icon(450, 35, high_img, 0.2)
+
+col_img = pygame.image.load('./src/Assets/col_uni.png').convert_alpha()
+college = icon(750, 35, col_img, 0.2)
+
+uni_img = pygame.image.load('./src/Assets/col_uni.png').convert_alpha()
+university = icon(750, 35, uni_img, 0.2)
+
+work_img = pygame.image.load('./src/Assets/work.png').convert_alpha()
+work = icon(750, 350, work_img, 0.2)
+
+app_img = pygame.image.load('./src/Assets/trades.png').convert_alpha()
+appren = icon(450, 175, app_img, 0.2)
+
+sports_img = pygame.image.load('./src/Assets/sports.png').convert_alpha()
+sports = icon(750, 200, sports_img, 0.2)
+
+hobby_img = pygame.image.load('./src/Assets/hobbies.png').convert_alpha()
+hobby = icon(450, 350, hobby_img, 0.2)
 
 pygame.display.set_caption("Growth Game")
 
@@ -86,10 +96,12 @@ while game_on:
  
 
 
-    high_school.draw()
-    mid_school.draw()
-    college.draw()
-    university.draw()
+    if character.get_grade() < 9:
+        mid_school.draw()
+    elif character.get_grade() < 13:
+        high_school.draw()
+    else:
+        university.draw()
     work.draw()
     appren.draw()
     sports.draw()

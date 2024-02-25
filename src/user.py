@@ -43,7 +43,8 @@ class User:
     def get_skills(self):
         return {skill.get_name(): skill.get_level() for skill in self.skills}
 
-
+    def get_grade(self):
+        return self.grade.grade
 
 
 if __name__ == "__main__":
