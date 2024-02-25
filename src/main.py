@@ -45,7 +45,7 @@ canvas = pygame.display.set_mode((1000,500))
 canvas.fill('chartreuse4')
 
 # Creating Path
-pathway = pygame.image.load('./Assets/path.png')
+pathway = pygame.image.load('./src/Assets/path.png')
 pathway = pygame.transform.scale(pathway, (150,500))
 
 # Creating Player
