@@ -1,5 +1,6 @@
 import skills
 import cohere
+import progression
 import os
 from dotenv import load_dotenv
 
@@ -16,19 +17,19 @@ class User:
         creativity = skills.creativity()
 
         self.name = ""
-        self.grade = 6
         self.age = 11
-        self.gender = ''
+        self.grade = progression.grade()
+        # self.gender = ''
         self.schedule = []
-        self.action_history = []
+        self.action_history = {}
         self.skills = [academics, athletics, creativity]
 
     def set_schedule(self, sched):
         self.schedule = sched
         
 
-    def update_skills(self):
-        self.action_history.append(self.schedule)
+    def update_skills(self, age):
+        self.action_history[age] = self.schedule
         update = [0] * 3
         DOCS = ["academics", "athletics", "creativity"]
 
