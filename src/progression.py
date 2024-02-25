@@ -1,51 +1,20 @@
 class grade:
 
-    def __init__(self, grade=6):
-        self.grade = grade
-        self.requirements = []
+    grade_requirements = {
+        6:[],
+        7:[],
+        8:[],
+        9:[],
+        10:[],
+        11:[],
+        12:[]
+    }
+    def __init__(self):
+        self.grade = 6
 
     def graduate(self, schedule: list[str]):
-        for reqs in set(self.requirements):
+        for reqs in set(self.grade_requirements[self.grade]):
             if schedule.count(reqs) < self.requirements.count(reqs):
                 return False
-        return True
-
-class grade_six(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-        self.requirements = ["gym", "math", "english", "art"]
-
-
-class grade_seven(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-class grade_eigh(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-class grade_nine(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-class grade_ten(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-class grade_eleven(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-class grade_twelve(grade):
-
-    def __init__(self, grade=6):
-        super().__init__(grade)
-
-
-        
+        if self.grade < 12:
+            self.grade += 1
