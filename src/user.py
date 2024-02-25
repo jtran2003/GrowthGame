@@ -22,4 +22,8 @@ class User:
         pass
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     user = User("test", "F")
+=======
+    user = User("test", "F")
+>>>>>>> f196d39e5bff2528ffafae3961cddaf8e563a341
