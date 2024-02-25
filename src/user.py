@@ -16,7 +16,7 @@ class User:
         athletics = skills.athletics()
         creativity = skills.creativity()
 
-        self.name = ""
+        self.name = name
         self.age = 11
         self.grade = progression.grade()
         self.work = progression.work()
