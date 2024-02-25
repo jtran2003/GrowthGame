@@ -1,29 +1,53 @@
 import skills
+import cohere
+import progression
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+COHERE_KEY = os.getenv("COHERE_KEY")
+co = cohere.Client(COHERE_KEY)
 
 class User:
     
-    def __init__(self, name, gender):
+    def __init__(self, name):
 
         academics = skills.academics()
         athletics = skills.athletics()
         creativity = skills.creativity()
 
         self.name = ""
-        self.grade = 6
         self.age = 11
-        self.gender = ''
+        self.grade = progression.grade()
+        self.work = progression.work()
+        # self.gender = ''
         self.schedule = []
+        self.action_history = {}
         self.skills = [academics, athletics, creativity]
 
-    def addToSchedule():
-        pass
+    def set_schedule(self, sched):
+        self.schedule = sched
+        
 
-    def updateSkills():
-        pass
+    def update_skills(self):
+        self.action_history[self.age] = self.schedule
+
+        for skill in set(self.schedule):
+            if skill[1] == "academics":
+                self.skills[0].increment_skill(self.schedule.count(skill))
+            elif skill[1] == "athletics":
+                self.skills[1].increment_skill(self.schedule.count(skill))
+            else:
+                self.skills[3].increment_skill(self.schedule.count(skill))
+
+    def get_skills(self):
+        return {skill.get_name(): skill.get_level() for skill in self.skills}
+
+
+
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    user = User("test", "F")
-=======
-    user = User("test", "F")
->>>>>>> f196d39e5bff2528ffafae3961cddaf8e563a341
+    user = User("test")
+    user.set_schedule(["math", "math", "basketball","history","music", "basketball"])
+    user.update_skills()
+    print(user.get_skills())
