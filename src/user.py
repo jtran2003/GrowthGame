@@ -10,7 +10,7 @@ co = cohere.Client(COHERE_KEY)
 
 class User:
     
-    def __init__(self, name, gender):
+    def __init__(self, name):
 
         academics = skills.academics()
         athletics = skills.athletics()
@@ -28,14 +28,15 @@ class User:
         self.schedule = sched
         
 
-    def update_skills(self, age):
-        self.action_history[age] = self.schedule
+    def update_skills(self):
+        self.action_history[self.age] = self.schedule
         update = [0] * 3
-        DOCS = ["academics", "athletics", "creativity"]
+        DOCS = ["nerd", "jock", "dork"]
 
         for skill in self.schedule:
-            res = co.rerank(query=skill, documents=DOCS, model="rerank-english-v2.0", top_n = 1)[0]
-            update[res.index] += 1
+            res = co.rerank(query=skill, documents=DOCS, model="rerank-english-v2.0", top_n = 3)
+            print(res)
+            update[res[0].index] += 1
         
         for i in range(len(update)):
             self.skills[i].increment_skill(update[i])
@@ -47,7 +48,7 @@ class User:
 
 
 if __name__ == "__main__":
-    user = User("test", "F")
-    user.set_schedule(["math", "math", "gym","history","music"])
+    user = User("test")
+    user.set_schedule(["math", "math", "basketball","history","music", "basketball"])
     user.update_skills()
     print(user.get_skills())
